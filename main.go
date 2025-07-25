@@ -1,6 +1,7 @@
-package config
+package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/xiao-hub-create/book/config"
@@ -17,5 +18,5 @@ func main() {
 
 	//访问加载后的配置
 	conf := config.Get()
-
+	fmt.Println(conf)
 }

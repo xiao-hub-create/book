@@ -24,7 +24,7 @@ var conf = &Config{
 }
 
 func Get() *Config {
-	if conf != nil {
+	if conf == nil {
 		panic("配置未初始化")
 	}
 	return conf
