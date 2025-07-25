@@ -45,7 +45,7 @@ func (m *MySQL) DB() *gorm.DB {
 	return db
 }
 
-func (m *MySQL) String() string {
-	v, _ := json.Marshal(m)
-	return string(v)
-}
+// func (m *MySQL) String() string {
+// 	v, _ := json.Marshal(m)
+// 	return string(v)
+// }
