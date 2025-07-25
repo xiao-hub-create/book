@@ -11,5 +11,5 @@ func TestLoadConfigFromYaml(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	t.Log(config.Get())
+	t.Log(config.Get().MySQL.DB())
 }
