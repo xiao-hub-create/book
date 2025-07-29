@@ -10,7 +10,7 @@ import (
 
 var conf = &Config{
 	App: &App{
-		Host: "127.0.0.1",
+		Host: "0.0.0.0",
 		Port: 8080,
 	},
 	MySQL: &MySQL{
