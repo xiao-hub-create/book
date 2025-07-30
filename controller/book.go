@@ -41,7 +41,7 @@ func (c *BookController) CreateBook(ctx context.Context, req *models.BookSpec) (
 		BookSpec: *req,
 	}
 
-	if err := c.db.Save(ctx).Error; err != nil {
+	if err := c.db.Save(ins).Error; err != nil {
 		return nil, err
 	}
 	return ins, nil

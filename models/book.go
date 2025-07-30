@@ -24,7 +24,7 @@ type BookSpec struct {
 	Title  string  `json:"title" gorm:"column:title;type:varchar(200)" validate:"required"`
 	Author string  `json:"author" gorm:"column:author;type:varchar(200);index" validate:"required"`
 	Price  float64 `json:"price" gorm:"column:price" validate:"required"`
-	IsSale *bool   `json:"is_sale" gorm:"column:is_sale"`
+	IsSale bool    `json:"is_sale" gorm:"column:is_sale"`
 }
 
 func (r *BookSpec) Validate() error {

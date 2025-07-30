@@ -36,12 +36,17 @@ func (h *BookApiHandler) Registry(r *gin.Engine) {
 }
 
 func (h *BookApiHandler) CreateBook(ctx *gin.Context) {
-	ins := new(models.Book)
-	if err := ctx.ShouldBindJSON(ins); err != nil {
+	req := new(models.BookSpec)
+	if err := ctx.ShouldBindJSON(req); err != nil {
 		response.Failed(ctx, err)
 		return
 	}
 
+	ins, err := h.svc.CreateBook(ctx.Request.Context(), req)
+	if err != nil {
+		response.Failed(ctx, err)
+		return
+	}
 	response.Success(ctx, ins)
 }
 

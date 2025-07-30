@@ -11,7 +11,7 @@ import (
 func TestGetBook(t *testing.T) {
 	book := controller.NewBookController()
 	ins, err := book.GetBook(context.Background(), &controller.GetBookRequest{
-		Isbn: 1,
+		Isbn: 3,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -22,9 +22,9 @@ func TestGetBook(t *testing.T) {
 func TestCreateBook(t *testing.T) {
 	book := controller.NewBookController()
 	ins, err := book.CreateBook(context.Background(), &models.BookSpec{
-		Author: "kun",
-		Price:  10,
-		Title:  "啦啦",
+		Author: "zeng",
+		Price:  20,
+		Title:  "牛牛",
 	})
 	if err != nil {
 		t.Fatal(err)
