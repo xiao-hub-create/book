@@ -1,8 +1,11 @@
 package api
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/xiao-hub-create/book/config"
+	"github.com/xiao-hub-create/book/controller"
 	"github.com/xiao-hub-create/book/models"
 	"github.com/xiao-hub-create/book/response"
 	"gorm.io/gorm"
@@ -11,13 +14,15 @@ import (
 // 构造函数，初始化结构体
 func NewBookHandler() *BookApiHandler {
 	return &BookApiHandler{
-		db: *config.Get().MySQL.DB(),
+		db:  *config.Get().MySQL.DB(),
+		svc: *controller.NewBookController(),
 	}
 }
 
 // 面向对象
 type BookApiHandler struct {
-	db gorm.DB
+	db  gorm.DB
+	svc controller.BookController
 }
 
 // 提供注册功能，提供一个Group
@@ -37,11 +42,6 @@ func (h *BookApiHandler) CreateBook(ctx *gin.Context) {
 		return
 	}
 
-	if err := h.db.Save(ins).Error; err != nil {
-		response.Failed(ctx, err)
-		return
-	}
-
 	response.Success(ctx, ins)
 }
 
@@ -57,10 +57,17 @@ func (h *BookApiHandler) ListBook(ctx *gin.Context) {
 }
 
 func (h *BookApiHandler) GetBook(ctx *gin.Context) {
-	var ins models.Book
-	id := ctx.Param("isbn")
+	strid := ctx.Param("isbn")
+	id, err := strconv.ParseInt(strid, 10, 64)
+	if err != nil {
+		response.Failed(ctx, err)
+		return
+	}
 
-	if err := h.db.Where("isbn=?", id).Take(&ins).Error; err != nil {
+	ins, err := h.svc.GetBook(ctx.Request.Context(), &controller.GetBookRequest{
+		Isbn: id,
+	})
+	if err != nil {
 		response.Failed(ctx, err)
 		return
 	}
