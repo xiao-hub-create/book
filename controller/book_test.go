@@ -32,3 +32,39 @@ func TestCreateBook(t *testing.T) {
 	t.Log(ins)
 
 }
+
+func TestListBook(t *testing.T) {
+	book := controller.NewBookController()
+	ins, err := book.ListBook(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ins)
+}
+
+func TestUpdate(t *testing.T) {
+	book := controller.NewBookController()
+	ins, err := book.UpdateBook(context.Background(), controller.UpdateBookRequest{
+		Isbn: 1,
+		BookSpec: models.BookSpec{
+			Author: "The King Of Northeast",
+			Price:  250,
+			Title:  "我爱熊熊",
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ins)
+}
+
+func TestDelete(t *testing.T) {
+	book := controller.NewBookController()
+	ins, err := book.DeleteBook(context.Background(), controller.DeleteBookRequest{
+		Isbn: 6,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ins)
+}
